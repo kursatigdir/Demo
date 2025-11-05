@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Bana cevap verir misin?</title>
+  <style>
+    body {
+      background-color: #ffd6e8; 
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      flex-direction: column;
+      overflow: hidden; 
+      padding: 10px;
+    }
+
+    .gif {
+      width: 300px; /* Küçültüldü */
+      max-width: 80%; /* Mobil ekran uyumu */
+      height: auto;
+      margin-bottom: 25px; /* Margin azaltıldı */
+      transition: transform 0.3s ease;
+    }
+
+    .gif:hover {
+      transform: scale(1.05);
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+      font-size: 24px;
+      text-align: center;
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      position: relative;
+    }
+
+    button {
+      padding: 12px 25px;
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      touch-action: manipulation; 
+    }
+
+    #yes {
+      background-color: #7ed957;
+      color: white;
+    }
+
+    #no {
+      background-color: #ff6b81;
+      color: white;
+      position: relative;
+    }
+
+    @keyframes shake {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      25% { transform: translate(-5px, 0) rotate(-5deg); }
+      50% { transform: translate(5px, 0) rotate(5deg); }
+      75% { transform: translate(-5px, 0) rotate(-5deg); }
+      100% { transform: translate(0, 0) rotate(0deg); }
+    }
+
+    .shake {
+      animation: shake 0.5s;
+    }
+  </style>
+</head>
+<body>
+  <img id="bearGif" class="gif" src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExZGc5dm1lMnozMHFhM3NkYzkyb2dmbXc2d3VvMGdkZ3hnNWFjc3ZsciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/0T1x0SgceKZ5AFW3G3/giphy.gif" alt="Sarılank Ayıcıklar">
+  <h1 id="question">Daha fazla konuşabilir miyiz?</h1>
+  <div class="buttons" id="buttonContainer">
+    <button id="no">Hayır</button>
+    <button id="yes">Evet</button>
+  </div>
+
+  <script>
+    const noButton = document.getElementById('no');
+    const yesButton = document.getElementById('yes');
+    const buttonContainer = document.getElementById('buttonContainer');
+    const bearGif = document.getElementById('bearGif');
+    const question = document.getElementById('question');
+
+    function getRandomPosition() {
+      const x = Math.random() * 120 - 60; // Mobilde daha küçük hareket
+      const y = Math.random() * 80 - 40;
+      return { x, y };
+    }
+
+    function moveNoButton() {
+      const pos = getRandomPosition();
+      noButton.style.transform = `translate(${pos.x}px, ${pos.y}px)`;
+      noButton.classList.add('shake');
+      setTimeout(() => noButton.classList.remove('shake'), 500);
+    }
+
+    noButton.addEventListener('mouseenter', moveNoButton); 
+    noButton.addEventListener('touchstart', (e) => {
+      e.preventDefault(); 
+      moveNoButton();
+    }, {passive: false});
+
+    yesButton.addEventListener('click', () => {
+      bearGif.src = 'https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNXoxczZzcG96NDNobHc1ZHlwa3RiNjBkdGg3d21jMXZ0cTMxdHBxdyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MEF1VadKbQBdmd8LCn/giphy.gif';
+      question.textContent = 'Cevabını sabırsızlıkla bekliyorum 💌';
+      buttonContainer.style.display = 'none';
+    });
+  </script>
+</body>
+</html>
